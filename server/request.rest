@@ -1,0 +1,38 @@
+# testing all accounts retrieval
+GET http://localhost:3000/api/account/get
+
+###
+# testing new account creation
+POST http://localhost:3000/api/account/create
+Content-Type: application/json
+
+{
+  "firstName": "v",
+  "lastName": "2v1",
+  "email": "vlvad",
+  "password": "916v4771817"
+}
+###
+# testing account deletion
+GET http://localhost:3000/api/account/delete
+Content-Type: application/json
+
+{
+  "email": "vlvad"
+}
+
+###
+# testing account update
+POST http://localhost:3000/api/account/update
+Content-Type: application/json
+
+{
+  "_id": "65fa68ddb5af4c789af6acb7",
+  "email": "vlvad",
+  "firstName": "stat",
+  "lastName": "2v1",
+  "password": "771817",
+  "type": "admin",
+  "games": []
+}
+
