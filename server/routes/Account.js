@@ -56,12 +56,19 @@ router.get("/delete", async (req, res) => {
 
 router.post("/update", async (req, res) => {
   //seeing if account exists
+  //creating password hash
+  try {
+    var passwordHash = await argon2.hash(req.body.password);
+  } catch (err) {
+    console.log("Some Error Happened: " + err);
+  }
+
   try {
     const account = await Account.findByIdAndUpdate(req.body._id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      password: req.body.password,
+      password: passwordHash,
       type: req.body.type,
       games: req.body.games,
     });
@@ -69,6 +76,27 @@ router.post("/update", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+router.post("/signin", async (req, res) => {
+  //seeing if account exists
+  const login = await Account.findOne({ email: req.body.email });
+
+  if (!login) {
+    console.log("email does not exist");
+    res.json({ error: "Email does not exist" });
+  } else {
+    try {
+      if (await argon2.verify(login.password, req.body.password)) {
+        res.json(login);
+      } else {
+        res.json({ error: "Password is incorrect" });
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+  return true;
 });
 
 module.exports = router;

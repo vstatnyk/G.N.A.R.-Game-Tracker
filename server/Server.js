@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors"); // Import the cors module
 const AccountRoutes = require("./routes/Account");
-const signInRoutes = require("./routes/SignIn");
+const GameRoutes = require("./routes/Game");
 
 //schemas
 const Account = require("./models/AccountSchema");
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/account", AccountRoutes);
-// app.use("/api/signIn", signInRoutes);
+app.use("/api/game", GameRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

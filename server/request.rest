@@ -35,4 +35,51 @@ Content-Type: application/json
   "type": "admin",
   "games": []
 }
+###
+# testing account sign in
+POST http://localhost:3000/api/account/signin
+Content-Type: application/json
 
+{
+  "email": "vlvad",
+  "password": "771817"
+}
+
+###
+# testing game retrieval
+GET http://localhost:3000/api/game/get
+
+###
+#GAMES
+# testing new game creation
+POST http://localhost:3000/api/game/create
+Content-Type: application/json
+
+{
+  "name": "game3",
+  "startDate": "2021-01-01",
+  "endDate": "2021-01-01",
+  "players": []
+}
+
+###
+# testing game deletion
+GET http://localhost:3000/api/game/delete
+Content-Type: application/json
+
+{
+  "_id": "65fbae1a431cb7764f2035ff"
+}
+
+###
+# testing game update
+POST http://localhost:3000/api/game/update
+Content-Type: application/json
+
+{
+  "_id": "65fbb60873430f4491d28705",
+  "name": "game4",
+  "startDate": "2021-01-01",
+  "endDate": "2021-01-01",
+  "players": []
+}
